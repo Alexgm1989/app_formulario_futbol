@@ -7,7 +7,7 @@ import Foundation
 
 import app_links
 import path_provider_foundation
-import share_plus_macos
+import share_plus
 import shared_preferences_foundation
 import sign_in_with_apple
 import sqflite_darwin
