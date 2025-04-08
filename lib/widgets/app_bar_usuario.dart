@@ -1,4 +1,3 @@
-// lib/widgets/app_bar_usuario.dart
 import 'package:flutter/material.dart';
 import 'package:app_futbol_cuestionario/modules/auth/screens/login_screen.dart';
 import 'package:app_futbol_cuestionario/core/services/sesion_service.dart';
@@ -8,10 +7,10 @@ class AppBarUsuario extends StatelessWidget implements PreferredSizeWidget {
   final String usuarioNombre;
 
   const AppBarUsuario({
-    super.key,
+    Key? key,
     required this.title,
     required this.usuarioNombre,
-  });
+  }) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -28,17 +27,39 @@ class AppBarUsuario extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      // Se habilita la flecha de retroceso automáticamente cuando es posible
-      automaticallyImplyLeading: true,
-      title: Text(title),
+      title: Row(
+        children: [
+          Image.asset(
+            'assets/images/escudo_club.png',
+            width: 36,
+            height: 36,
+            fit: BoxFit.contain,
+          ),
+          const SizedBox(width: 8),
+          Text(title),
+        ],
+      ),
       actions: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Center(child: Text(usuarioNombre)),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Center(
+            child: Text(
+              usuarioNombre,
+              style: const TextStyle(fontSize: 14),
+            ),
+          ),
         ),
-        IconButton(
-          icon: const Icon(Icons.logout),
-          onPressed: () => _logout(context),
+        PopupMenuButton<String>(
+          onSelected: (value) {
+            if (value == 'logout') _logout(context);
+          },
+          itemBuilder: (context) => [
+            const PopupMenuItem(
+              value: 'logout',
+              child: Text('Cerrar sesión'),
+            ),
+          ],
+          icon: const Icon(Icons.more_vert),
         ),
       ],
     );

@@ -1,4 +1,3 @@
-// lib/modules/auth/screens/login_screen.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:app_futbol_cuestionario/modules/shared/pantalla_inicio.dart';
@@ -27,7 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
-    // Iniciar sesión usando Supabase Auth con email y contraseña.
     final AuthResponse response = await Supabase.instance.client.auth
         .signInWithPassword(email: email, password: password);
 
@@ -39,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    // Obtener datos adicionales (nombre y rol) desde la tabla "usuarios".
     final usuario = await SesionService.obtenerUsuarioPorId(response.user!.id);
     if (usuario == null) {
       setState(() {
@@ -49,7 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    // Obtener el id entero del jugador o del cuerpo técnico según corresponda.
     int jugadorId = 0;
     if (usuario.rol == 'jugador') {
       final id = await SesionService.obtenerJugadorIdPorUsuario(usuario.id);
@@ -60,7 +56,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     if (!mounted) return;
-    // Navegar a PantallaInicio para todos los roles.
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -88,18 +83,13 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(24),
-            // Limitar el ancho máximo a 400px.
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 400),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Imagen del escudo.
                   Container(
-                    constraints: const BoxConstraints(
-                      maxWidth: 200,
-                      maxHeight: 200,
-                    ),
+                    constraints: const BoxConstraints(maxWidth: 200, maxHeight: 200),
                     child: Image.asset(
                       'assets/images/escudo_club.png',
                       fit: BoxFit.contain,
@@ -152,11 +142,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (_) => const RegisterScreen()),
+                        MaterialPageRoute(builder: (_) => const RegisterScreen()),
                       );
                     },
                     child: const Text('¿No tienes cuenta? Regístrate'),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Versión 2.0',
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],
               ),

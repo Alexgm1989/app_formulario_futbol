@@ -19,6 +19,7 @@ dependencies:
   pdf: ^3.6.0
   share_plus: ^3.0.4
   path_provider: ^2.0.8
+  flutter_launcher_icons: ^0.14.3
 
 dev_dependencies:
   flutter_test:
@@ -29,3 +30,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/escudo_club.png
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/escudo_club.png"

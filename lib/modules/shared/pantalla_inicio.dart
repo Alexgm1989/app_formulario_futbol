@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:app_futbol_cuestionario/modules/shared/pre_post_selection_screen.dart';
 import 'package:app_futbol_cuestionario/modules/admin/admin_panel_screen.dart';
 import 'package:app_futbol_cuestionario/modules/shared/antropometria_options_screen.dart';
+import 'package:app_futbol_cuestionario/widgets/app_bar_usuario.dart';
 
 class PantallaInicio extends StatelessWidget {
   final int jugadorId;
@@ -19,15 +20,15 @@ class PantallaInicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Menú principal'),
+      appBar: AppBarUsuario(
+        title: 'Menú principal',
+        usuarioNombre: nombreJugador,
       ),
       body: Center(
         child: ListView(
           padding: const EdgeInsets.all(32),
           shrinkWrap: true,
           children: [
-            // Botón "Cuestionarios": acceso a PRE y POST.
             ElevatedButton.icon(
               icon: const Icon(Icons.assignment),
               label: const Text('Cuestionarios'),
@@ -41,8 +42,6 @@ class PantallaInicio extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (_) => PrePostSelectionScreen(
                       rolUsuario: rolUsuario,
-                      // Si el usuario es jugador se pasan jugadorId y nombreJugador;
-                      // de lo contrario, se dejan en null.
                       jugadorId: rolUsuario.toLowerCase() == 'jugador' ? jugadorId : null,
                       nombreJugador: rolUsuario.toLowerCase() == 'jugador' ? nombreJugador : null,
                     ),
@@ -51,7 +50,6 @@ class PantallaInicio extends StatelessWidget {
               },
             ),
             const SizedBox(height: 16),
-            // Botón "Antropometría": navega a la sección que contiene las 3 opciones (o el historial directo para jugador).
             ElevatedButton.icon(
               icon: const Icon(Icons.monitor_weight),
               label: const Text('Antropometría'),
@@ -73,7 +71,6 @@ class PantallaInicio extends StatelessWidget {
               },
             ),
             const SizedBox(height: 16),
-            // Otros botones existentes...
             ElevatedButton.icon(
               icon: const Icon(Icons.healing),
               label: const Text('Lesiones'),
@@ -176,7 +173,6 @@ class PantallaInicio extends StatelessWidget {
   }
 }
 
-// Pantalla de marcador de posición para secciones en desarrollo.
 class PlaceholderScreen extends StatelessWidget {
   final String title;
   final String message;
